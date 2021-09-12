@@ -2,6 +2,7 @@ import React from 'react'
 import './App.css';
 import TodoInput from './components/TodoInput';
 import TodoItem from './components/TodoItem';
+import * as localStorage from './components/localStore'
 
 let id = 0
 function idMaker() {
@@ -14,11 +15,7 @@ class App extends React.Component{
     super(props)
     this.state = {
       newTodo: '',
-      todoList: [
-        { id: idMaker(), title: '吃饭', status: '', delete:false},
-        { id: idMaker(), title: '睡觉', status: '', delete:false},
-        { id: idMaker(), title: '学前端', status: '', delete:false}
-      ]
+      todoList: localStorage.get('todoList') || []
     }
   }
   //添加列表新数据
@@ -30,14 +27,16 @@ class App extends React.Component{
         todoList:state.todoList.concat(newItem)
       })
     )
+    localStorage.set('todoList',this.state.todoList)
   }
-  //表单数据提交
+  //表单数据单项绑定
   changeTitle = (e) => { 
     this.setState(state =>
       ({
         newTodo:state.newTodo = e.target.value
       })
     )
+    localStorage.set('todoList',this.state.todoList)
   }
   //未完成/完成切换
   onToggle(e,item){
@@ -46,14 +45,16 @@ class App extends React.Component{
       todoList:state.todoList
     }))
     console.log(item);
+    localStorage.set('todoList',this.state.todoList)
   }
-  //删除更功能
+  //删除功能
   onDelete(e,item) {
     item.delete = !item.delete
     this.setState(state => ({
       todoList:state.todoList
     }))
-     console.log(item);
+    console.log(item);
+    localStorage.set('todoList',this.state.todoList)
   }
   render() {
     //任务列表数据:添加过滤条件delete
@@ -84,7 +85,7 @@ class App extends React.Component{
         
         <button onClick={this.addItem}>新增</button>
 
-        <ol>
+        <ol className="todoList">
           {todos}
         </ol>
       </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/TodoInput.css'
 
 class TodoInput extends React.Component{
   constructor(props) {
@@ -18,6 +19,7 @@ class TodoInput extends React.Component{
     return (
       <>
         <input
+          className="TodoInput"
           type="text"
           defaultValue={this.props.value}
           onChange = {this.changeTitle}

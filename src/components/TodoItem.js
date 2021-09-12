@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/TodoItem.css'
 
 class TodoItem extends React.Component{
   constructor(props) {
@@ -17,7 +18,7 @@ class TodoItem extends React.Component{
   }
   render() {
     return (
-      <>
+      <div className="TodoItem">
         <input
           type="checkbox"
           checked={
@@ -25,9 +26,9 @@ class TodoItem extends React.Component{
           }
           onChange={this.onToggle}
         />
-        {this.props.value.title}
+        <span className='title'>{this.props.value.title}</span>
         <button onClick={this.onDelete}>删除</button>
-      </>
+      </div>
     )
   }
 }
