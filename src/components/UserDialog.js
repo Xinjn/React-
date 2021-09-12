@@ -17,6 +17,37 @@ class UserDialog extends React.Component{
     }
 
     render() {
+        let signForm = ( //注册
+
+            <form className="sign">
+                <div className="row">
+                    <label>用户名</label>
+                    <input type="text"/>
+                </div>
+                <div className="row">
+                    <label>密码</label>
+                    <input type="password"/>
+                </div>
+                <div className="row actions">
+                    <button>注册</button>
+                </div>
+            </form>
+        )
+        let loginForm = (  //登录
+                <form className="login">
+                    <div className="row">
+                        <label>用户名</label>
+                        <input type="text"/>
+                    </div>
+                    <div className="row">
+                        <label>密码</label>
+                        <input type="password"/>
+                    </div>
+                    <div className="row actions">
+                        <button>登录</button>
+                    </div>
+                </form>
+        )
         return (
             <div className="UserDialog-Wrapper">
                 <div className="UserDialog">
@@ -37,34 +68,8 @@ class UserDialog extends React.Component{
                         </label>
                     </nav>
                     <div className="panes">
-                        {/* 注册 */}
-                        <form className="sign">
-                            <div className="row">
-                                <label>用户名</label>
-                                <input type="text"/>
-                            </div>
-                            <div className="row">
-                                <label>密码</label>
-                                <input type="password"/>
-                            </div>
-                            <div className="row actions">
-                                <button>注册</button>
-                            </div>
-                        </form>
-                        {/* 登录 */}
-                        <form className="login">
-                            <div className="row">
-                                <label>用户名</label>
-                                <input type="text"/>
-                            </div>
-                            <div className="row">
-                                <label>密码</label>
-                                <input type="password"/>
-                            </div>
-                            <div className="row actions">
-                                <button>登录</button>
-                            </div>
-                        </form>
+                        {this.state.selected === 'sign' ? signForm:null}
+                        {this.state.selected === 'login' ? loginForm:null}
                     </div>
                 </div>
             </div>
