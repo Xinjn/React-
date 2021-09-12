@@ -46,29 +46,35 @@ class UserDialog extends React.Component{
     onSign(e) {
         e.preventDefault();//阻止默认事件跳转
         console.log('注册');
-        let {username,password} = this.state.formData
+        let { username, password } = this.state.formData
+        let success = (user) => {
+            this.props.onSign.call(null,user)
+        }
+        let error = (error) => {
+            console.log(error);
+        }
         Sign(
             username,
             password,
-            function (user) {
-                console.log(user);
-            }, function (error) {
-                console.log(error);
-            }
+            success,
+            error
         )
     }
-    login(e) {
+    onLogin(e) {
         e.preventDefault();//阻止默认事件跳转
         console.log('登录');
-        let {username,password} = this.state.formData
+        let { username, password } = this.state.formData
+        let success = (user) => {
+            this.props.onLogin.call(null,user)
+        }
+        let error = (error) => {
+            console.log(error);
+        }
         Login(
             username,
             password,
-            function (data) {
-                console.log(data);
-            }, function (error) {
-                console.log(error);
-            }
+            success,
+            error
         )
     }
     render() {
@@ -99,7 +105,7 @@ class UserDialog extends React.Component{
         let loginForm = ( //登录
             <form
                 className="login"
-                onSubmit={this.login.bind(this)}
+                onSubmit={this.onLogin.bind(this)}
             >
                     <div className="row">
                         <label>用户名</label>

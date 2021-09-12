@@ -60,8 +60,23 @@ class App extends React.Component{
     }))
     console.log(item);
   }
-  //注销
-  onlogout(e) {
+  //注册：触发setSatet更新UI重新渲染
+  onSign(user) {
+    this.setState(state => ({
+      user:state.user = user
+    }))
+  }
+  //登陆：触发setSatet更新UI重新渲染
+  onLogin(user) { 
+    this.setState(state => ({
+      user:state.user = user
+    }))
+  }
+  //注销：触发setSatet更新UI重新渲染
+  onlogout() {
+    this.setState(state => ({
+      user:state.user = {}
+    }))
     Logout()
   }
   render() {
@@ -102,7 +117,13 @@ class App extends React.Component{
         <ol className="todoList">
           {todos}
         </ol>
-          { this.state.user.id ? null : <UserDialog /> }
+        {this.state.user.id
+          ? null :
+          <UserDialog
+            onSign={this.onSign.bind(this)}
+            onLogin={this.onLogin.bind(this)}
+          />
+        }
       </div>
     )
   }
