@@ -21,16 +21,20 @@ class UserDialog extends React.Component{
             <div className="UserDialog-Wrapper">
                 <div className="UserDialog">
                     <nav onChange={this.switch.bind(this)}>
-                        <input
+                        <label>
+                            <input
                             type="radio"
                             value="sign"
                             checked={this.state.selected === 'sign'}
-                        />注册
-                        <input
+                            />注册
+                        </label>
+                        <label>
+                            <input
                             type="radio"
                             value="login"
                             checked={this.state.selected === 'login'}
-                        />登录
+                            />登录
+                        </label>
                     </nav>
                     <div className="panes">
                         {/* 注册 */}
