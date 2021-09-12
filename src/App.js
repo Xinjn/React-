@@ -2,14 +2,7 @@ import React from 'react'
 import './App.css';
 import TodoInput from './components/TodoInput';
 import TodoItem from './components/TodoItem';
-import AV from './components/leanCloud'
-
-const TestObject = AV.Object.extend('TestObject');
-const testObject = new TestObject();
-testObject.set('words', 'Hello world!');
-testObject.save().then((testObject) => {
-  console.log('保存成功。')
-})
+import UserDialog from './components/UserDialog';
 
 //ID自增
 let id = 0
@@ -100,6 +93,8 @@ class App extends React.Component{
         <ol className="todoList">
           {todos}
         </ol>
+
+        <UserDialog/>
       </div>
     )
   }
