@@ -2,16 +2,16 @@ import React from 'react'
 import './App.css';
 import TodoInput from './components/TodoInput';
 import TodoItem from './components/TodoItem';
-import * as localStorage from './components/localStore'
+import AV from './components/leanCloud'
 
-import AV from 'leancloud-storage'
-var APP_ID = 'ERSdzjMMljMMn7gHYra9aOAX-gzGzoHsz'
-var APP_KEY = 'TgjdArq4Bddq4VsKx8ATAxdh'
-AV.init({
-  appId: APP_ID,
-  appKey: APP_KEY
+const TestObject = AV.Object.extend('TestObject');
+const testObject = new TestObject();
+testObject.set('words', 'Hello world!');
+testObject.save().then((testObject) => {
+  console.log('保存成功。')
 })
 
+//ID自增
 let id = 0
 function idMaker() {
   id += 1
@@ -23,11 +23,11 @@ class App extends React.Component{
     super(props)
     this.state = {
       newTodo: '',
-      todoList: localStorage.get('todoList') || []
+      todoList: []
     }
   }
   componentDidUpdate() {
-    localStorage.set('todoList',this.state.todoList)
+
   }
 
   //添加列表新数据
