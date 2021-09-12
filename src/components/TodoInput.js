@@ -10,13 +10,15 @@ class TodoInput extends React.Component{
       this.props.onSubmit.call()
     }
   }
+  //获取父组件会回调函数，传入表单数据
   changeTitle = (e) => {
-    this.props.onChange(e) //获取父组件会回调函数，传入表单数据
+    this.props.onChange(e) 
   }
   render() {
     return (
       <>
         <input
+          type="text"
           defaultValue={this.props.value}
           onChange = {this.changeTitle}
           onKeyDown={this.sumbit}
