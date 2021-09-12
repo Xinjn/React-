@@ -47,6 +47,8 @@ class UserDialog extends React.Component{
         e.preventDefault();//阻止默认事件跳转
         console.log('注册');
         let { username, password } = this.state.formData
+        if (!username) { return alert('请输入用户名') }
+        if(!password){return alert('请输入密码')}
         let success = (user) => {
             this.props.onSign.call(null,user)
         }
@@ -55,7 +57,9 @@ class UserDialog extends React.Component{
                 case 202:
                     alert('用户名已被占用')
                     break;
-            
+                case 400:
+                    alert('找不到用户')
+                    break;
                 default:
                     alert(error)
                     break;
@@ -72,6 +76,8 @@ class UserDialog extends React.Component{
         e.preventDefault();//阻止默认事件跳转
         console.log('登录');
         let { username, password } = this.state.formData
+        if (!username) { return alert('请输入用户名') }
+        if(!password){return alert('请输入密码')}
         let success = (user) => {
             this.props.onLogin.call(null,user)
         }
@@ -80,11 +86,17 @@ class UserDialog extends React.Component{
                 case 210:
                     alert('用户名与密码不匹配')
                     break;
-            
+                case 211:
+                    alert('找不到用户')
+                    break;
+                case 219:
+                    alert('用户名与密码不匹配')
+                    break;
                 default:
                     alert(error)
                     break;
             }
+            console.log(error.code);
         }
         Login(
             username,
