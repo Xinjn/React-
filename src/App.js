@@ -4,6 +4,14 @@ import TodoInput from './components/TodoInput';
 import TodoItem from './components/TodoItem';
 import * as localStorage from './components/localStore'
 
+import AV from 'leancloud-storage'
+var APP_ID = 'ERSdzjMMljMMn7gHYra9aOAX-gzGzoHsz'
+var APP_KEY = 'TgjdArq4Bddq4VsKx8ATAxdh'
+AV.init({
+  appId: APP_ID,
+  appKey: APP_KEY
+})
+
 let id = 0
 function idMaker() {
   id += 1
