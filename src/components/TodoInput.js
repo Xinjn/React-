@@ -4,9 +4,9 @@ class TodoInput extends React.Component{
   constructor(props) {
     super(props)
   }
+  //获取父组件会回调函数，调用函数
   sumbit = (e) => {
     if (e.keyCode === 13) {
-      console.log('提交')
       this.props.onSubmit.call()
     }
   }

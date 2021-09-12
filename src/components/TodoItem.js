@@ -7,7 +7,13 @@ class TodoItem extends React.Component{
   }
   //获取父组件会回调函数，传入单选项数据
   onToggle = (e) => {
+    console.log('切换类型');
     this.props.onToggle(e,this.props.value)
+  }
+  //获取父组件会回调函数，传入单选项数据
+  onDelete = (e) => {
+    console.log('删除任务');
+    this.props.onDelete(e,this.props.value)
   }
   render() {
     return (
@@ -20,6 +26,7 @@ class TodoItem extends React.Component{
           onChange={this.onToggle}
         />
         {this.props.value.title}
+        <button onClick={this.onDelete}>删除</button>
       </>
     )
   }

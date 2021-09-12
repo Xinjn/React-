@@ -15,14 +15,15 @@ class App extends React.Component{
     this.state = {
       newTodo: '',
       todoList: [
-        { id: idMaker(), title: '吃饭', status: '' },
-        { id: idMaker(), title: '睡觉', status: '' },
-        { id: idMaker(), title: '学前端', status: '' }
+        { id: idMaker(), title: '吃饭', status: '', delete:false},
+        { id: idMaker(), title: '睡觉', status: '', delete:false},
+        { id: idMaker(), title: '学前端', status: '', delete:false}
       ]
     }
   }
   //添加列表新数据
   addItem = () => {
+    console.log('新增数据')
     const newItem = { id:idMaker(), title:this.state.newTodo, status: '' }
     this.setState(state =>
       ({
@@ -41,22 +42,31 @@ class App extends React.Component{
   //未完成/完成切换
   onToggle(e,item){
     item.status = item.status === "completed" ? '' : "completed"
-
     this.setState(state => ({
       todoList:state.todoList
     }))
     console.log(item);
   }
+  //删除更功能
+  onDelete(e,item) {
+    item.delete = !item.delete
+    this.setState(state => ({
+      todoList:state.todoList
+    }))
+     console.log(item);
+  }
   render() {
-    //任务列表数据
-    let todos = this.state.todoList.map((item, index) => {
+    //任务列表数据:添加过滤条件delete
+    let todos = this.state.todoList.filter(item=>!item.delete).map((item, index) => {
       return (
         <li key={index}>
           <TodoItem
             value={item}
             //声明回调函数，传给子组件，传入单选项数据
             //手动绑定this指向，不然无法调用this.setState
-            onToggle={this.onToggle.bind(this)} 
+            onToggle={this.onToggle.bind(this)}
+            //声明回调函数，传给子组件，传入数据
+            onDelete={this.onDelete.bind(this)}
           />
         </li>
       )
@@ -72,7 +82,7 @@ class App extends React.Component{
           onSubmit={this.addItem}
         />
         
-        <button onClick={this.addItem} >新增</button>
+        <button onClick={this.addItem}>新增</button>
 
         <ol>
           {todos}
