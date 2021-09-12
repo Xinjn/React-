@@ -9,7 +9,6 @@ class UserDialog extends React.Component{
             formData: {
                 username: '',
                 password: ''
-                
             }
         }
     }
@@ -21,6 +20,7 @@ class UserDialog extends React.Component{
         })
         )
     }
+    /*
     changeUsername(e) {
         let name = e.target.value
         this.setState(state => ({
@@ -34,46 +34,68 @@ class UserDialog extends React.Component{
             username:state.formData.password = password
         }))
     }
+    */
+    //将 changeUserName 和 changePassword 优化成一个函数 changeFormData
+    changeFormData(key,e) {
+        let value = e.target.value
+        this.setState(state => ({
+            key:state.formData[key] = value
+        }))
+    }
+    onSign(e) {
+        e.preventDefault();//阻止默认事件跳转
+        console.log('注册');
+    }
+    login(e) {
+        e.preventDefault();//阻止默认事件跳转
+        console.log('登录');
+    }
     render() {
         let signForm = ( //注册
-            <form className="sign">
+            <form
+                className="sign"
+                onSubmit={this.onSign.bind(this)}
+            >
                 <div className="row">
                     <label>用户名</label>
                     <input
                         type="text"
-                        onChange={this.changeUsername.bind(this)}
+                        onChange={this.changeFormData.bind(this,'username')}
                     />
                 </div>
                 <div className="row">
                     <label>密码</label>
                     <input
                         type="password"
-                        onChange={this.changePassword.bind(this)}
+                        onChange={this.changeFormData.bind(this,'password')}
                     />
                 </div>
                 <div className="row actions">
-                    <button>注册</button>
+                    <button >注册</button>
                 </div>
             </form>
         )
-        let loginForm = (  //登录
-                <form className="login">
+        let loginForm = ( //登录
+            <form
+                className="login"
+                onSubmit={this.login.bind(this)}
+            >
                     <div className="row">
                         <label>用户名</label>
                         <input
                             type="text"
-                            onChange={this.changeUsername.bind(this)}
+                            onChange={this.changeFormData.bind(this,'username')}
                             />
                     </div>
                     <div className="row">
                         <label>密码</label>
                         <input
                             type="password"
-                            onChange={this.changePassword.bind(this)}
+                            onChange={this.changeFormData.bind(this,'password')}
                         />
                     </div>
                     <div className="row actions">
-                        <button>登录</button>
+                        <button >登录</button>
                     </div>
                 </form>
         )
