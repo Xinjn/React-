@@ -18,6 +18,10 @@ class App extends React.Component{
       todoList: localStorage.get('todoList') || []
     }
   }
+  componentDidUpdate() {
+    localStorage.set('todoList',this.state.todoList)
+  }
+
   //添加列表新数据
   addItem = () => {
     console.log('新增数据')
@@ -27,7 +31,7 @@ class App extends React.Component{
         todoList:state.todoList.concat(newItem)
       })
     )
-    localStorage.set('todoList',this.state.todoList)
+    
   }
   //表单数据单项绑定
   changeTitle = (e) => { 
@@ -36,7 +40,7 @@ class App extends React.Component{
         newTodo:state.newTodo = e.target.value
       })
     )
-    localStorage.set('todoList',this.state.todoList)
+    
   }
   //未完成/完成切换
   onToggle(e,item){
@@ -45,7 +49,7 @@ class App extends React.Component{
       todoList:state.todoList
     }))
     console.log(item);
-    localStorage.set('todoList',this.state.todoList)
+    
   }
   //删除功能
   onDelete(e,item) {
@@ -54,7 +58,7 @@ class App extends React.Component{
       todoList:state.todoList
     }))
     console.log(item);
-    localStorage.set('todoList',this.state.todoList)
+    
   }
   render() {
     //任务列表数据:添加过滤条件delete
