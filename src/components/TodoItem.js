@@ -4,7 +4,7 @@ import '../css/TodoItem.css'
 class TodoItem extends React.Component{
   constructor(props) {
     super(props)
-    console.log(props);
+    
   }
   //获取父组件会回调函数，传入单选项数据
   onToggle = (e) => {

@@ -3,7 +3,7 @@ import './App.css';
 import TodoInput from './components/TodoInput';
 import TodoItem from './components/TodoItem';
 import UserDialog from './components/UserDialog';
-import { getCurrentUser, Logout} from './components/leanCloud';
+import { getCurrentUser, Logout, addTodo, getData, deleteData} from './components/leanCloud';
 
 //ID自增
 let id = 0
@@ -20,20 +20,32 @@ class App extends React.Component{
       newTodo: '',
       todoList: []
     }
-    console.log(getCurrentUser());
+  }
+
+  //出生渲染列表
+  componentDidMount() {
+    getData().then(item => {
+      this.setState(state => ({
+        todoList:state.todoList = item
+      }))
+    })
   }
 
   //添加列表新数据
   addItem = () => {
     console.log('新增数据')
-    const newItem = { id:idMaker(), title:this.state.newTodo, status: '' }
+    let id = idMaker()
+    const newItem = { id:id, title:this.state.newTodo, status: '',delete:false}
     this.setState(state =>
       ({
         todoList:state.todoList.concat(newItem)
       })
     )
-    
+    //添加到数据库
+    //addTodo(id,title,status,deleted) 
+    addTodo(id.toString(),this.state.newTodo,'',false)
   }
+
   //表单数据单项绑定
   changeTitle = (e) => { 
     this.setState(state =>
@@ -58,7 +70,7 @@ class App extends React.Component{
     this.setState(state => ({
       todoList:state.todoList
     }))
-    console.log(item);
+    deleteData(item)
   }
   //注册：触发setSatet更新UI重新渲染
   onSign(user) {

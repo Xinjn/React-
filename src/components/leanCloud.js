@@ -101,4 +101,66 @@ function Logout() {
   return undefined
 }
 
-export {AV,Sign,Login,getCurrentUser,Logout}
+//保存数据
+function addTodo(id,title,status,deleted) {
+  // 为 AV.Object 创建子类
+  const Todo = AV.Object.extend('Todo');
+  // 新建数据对象
+  const todo = new Todo();
+  // 为属性赋值
+  todo.set('id', id);
+  todo.set('title',title);
+  todo.set('status',status);
+  todo.set('deleted',deleted);
+  // 将对象保存到云端
+  todo.save().then(
+    // 成功保存之后，执行其他逻辑
+    (data) => {
+      console.log('保存成功');
+      console.log(data.attributes);
+    },
+    // 异常处理
+    (error) => {
+      console.log(error);
+    }
+  );
+}
+
+//获取数据
+function getData() {
+  return new Promise((resolve, reject) => {
+    const query = new AV.Query('Todo');
+    query.find()
+      .then(todos => {
+              let array = todos.map(todo=>todo.attributes)
+              resolve(array)
+            })
+            .catch(error => {
+              reject(error)
+            })
+  })
+}
+//测试
+/*
+getData().then(item => {
+  console.log(item);
+})
+*/
+
+//删除数据
+function deleteData(item) {
+    let id = item.id
+    const query = new AV.Query('Todo');
+    query.find()
+            .then(todos => {
+              todos.map(todo => {
+                if (todo.attributes.id === id) {
+                    const deleteFile = AV.Object.createWithoutData('Todo', todo.id);
+                    deleteFile.destroy();
+                }
+              })
+            })
+}
+
+
+export {AV,Sign,Login,getCurrentUser,Logout,addTodo,getData,deleteData}
