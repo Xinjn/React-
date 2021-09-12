@@ -9,11 +9,15 @@ class TodoInput extends React.Component{
   sumbit = (e) => {
     if (e.keyCode === 13) {
       this.props.onSubmit.call()
+      //清空缓存
+      let input = this.refs.myInput
+      input.value = ''
     }
+    
   }
   //获取父组件会回调函数，传入表单数据
   changeTitle = (e) => {
-    this.props.onChange(e) 
+    this.props.onChange(e)
   }
   render() {
     return (
@@ -24,6 +28,7 @@ class TodoInput extends React.Component{
           defaultValue={this.props.value}
           onChange = {this.changeTitle}
           onKeyDown={this.sumbit}
+          ref="myInput" //清空缓存
         />
       </>
     )

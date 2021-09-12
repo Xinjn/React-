@@ -38,7 +38,7 @@ class App extends React.Component{
     const newItem = { id:id, title:this.state.newTodo, status: '',delete:false}
     this.setState(state =>
       ({
-        todoList:state.todoList.concat(newItem)
+        todoList: state.todoList.concat(newItem),
       })
     )
     //添加到数据库
