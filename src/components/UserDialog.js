@@ -51,7 +51,15 @@ class UserDialog extends React.Component{
             this.props.onSign.call(null,user)
         }
         let error = (error) => {
-            console.log(error);
+            switch (error.code) {
+                case 202:
+                    alert('用户名已被占用')
+                    break;
+            
+                default:
+                    alert(error)
+                    break;
+            }
         }
         Sign(
             username,
@@ -68,7 +76,15 @@ class UserDialog extends React.Component{
             this.props.onLogin.call(null,user)
         }
         let error = (error) => {
-            console.log(error);
+            switch (error.code) {
+                case 210:
+                    alert('用户名与密码不匹配')
+                    break;
+            
+                default:
+                    alert(error)
+                    break;
+            }
         }
         Login(
             username,
