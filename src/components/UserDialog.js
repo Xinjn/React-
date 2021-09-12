@@ -12,7 +12,6 @@ class UserDialog extends React.Component{
                 password: ''
             }
         }
-        
     }
     //注册/登录切换
     switch(e) {
@@ -115,12 +114,13 @@ class UserDialog extends React.Component{
         return (
             <div className="UserDialog-Wrapper">
                 <div className="UserDialog">
-                    <nav onChange={this.switch.bind(this)}>
+                    <nav>
                         <label>
                             <input
                             type="radio"
                             value="sign"
                             checked={this.state.selected === 'sign'}
+                            onChange={this.switch.bind(this)}
                             />注册
                         </label>
                         <label>
@@ -128,6 +128,7 @@ class UserDialog extends React.Component{
                             type="radio"
                             value="login"
                             checked={this.state.selected === 'login'}
+                            onChange={this.switch.bind(this)}
                             />登录
                         </label>
                     </nav>

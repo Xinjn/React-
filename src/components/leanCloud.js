@@ -8,7 +8,7 @@ AV.init({
   serverURL: "https://gxm2wifh.lc-cn-e1-shared.com"
 })
 
-//二次封装数据:用户数据
+//二次封装数据:用户数据+id
 function getUserFrom(AVUser) {
   return {
     id: AVUser.id,
@@ -28,7 +28,7 @@ function Sign(username,password,successFn,errorFn) {
   user.signUp().then(
     // 注册成功
     (data) => {
-      //二次封装数据:用户数据
+      //二次封装数据:用户数据+id
       let user = getUserFrom(data)
       successFn(user)
     },
@@ -53,4 +53,18 @@ Sign(
 )
 */
 
-export {AV,Sign}
+//查看用户是否存在
+function getCurrentUser() {
+  const user = AV.User.current();
+  if (user) {
+    // 用户存在
+    return getUserFrom(user)
+  } else {
+    // 用户不存在
+    return null
+  }
+}
+
+
+
+export {AV,Sign,getCurrentUser}

@@ -3,6 +3,7 @@ import './App.css';
 import TodoInput from './components/TodoInput';
 import TodoItem from './components/TodoItem';
 import UserDialog from './components/UserDialog';
+import { getCurrentUser } from './components/leanCloud';
 
 //ID自增
 let id = 0
@@ -15,12 +16,11 @@ class App extends React.Component{
   constructor(props) {
     super(props)
     this.state = {
+      user:getCurrentUser() || {},
       newTodo: '',
       todoList: []
     }
-  }
-  componentDidUpdate() {
-
+    console.log(getCurrentUser());
   }
 
   //添加列表新数据
@@ -80,8 +80,10 @@ class App extends React.Component{
 
     return (
       <div className="App">
-        <h1>我的待办</h1>
-
+        <h1>
+          {this.state.user.username || '我'}的待办
+        </h1>
+        
         <TodoInput
           value={this.state.newTodo}
           onChange = {this.changeTitle} //声明回调函数，传给子组件，传入表单数据
@@ -93,8 +95,7 @@ class App extends React.Component{
         <ol className="todoList">
           {todos}
         </ol>
-
-        <UserDialog/>
+          { this.state.user.id ? null : <UserDialog /> }
       </div>
     )
   }
