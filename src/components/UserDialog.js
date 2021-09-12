@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import "../css/UserDialog.css"
-import {Sign} from './leanCloud'
+import {Login, Sign} from './leanCloud'
 
 class UserDialog extends React.Component{
     constructor(props) {
@@ -46,8 +46,7 @@ class UserDialog extends React.Component{
     onSign(e) {
         e.preventDefault();//阻止默认事件跳转
         console.log('注册');
-        let username = this.state.formData.username
-        let password = this.state.formData.password
+        let {username,password} = this.state.formData
         Sign(
             username,
             password,
@@ -61,6 +60,16 @@ class UserDialog extends React.Component{
     login(e) {
         e.preventDefault();//阻止默认事件跳转
         console.log('登录');
+        let {username,password} = this.state.formData
+        Login(
+            username,
+            password,
+            function (data) {
+                console.log(data);
+            }, function (error) {
+                console.log(error);
+            }
+        )
     }
     render() {
         let signForm = ( //注册

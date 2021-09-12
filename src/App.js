@@ -3,7 +3,7 @@ import './App.css';
 import TodoInput from './components/TodoInput';
 import TodoItem from './components/TodoItem';
 import UserDialog from './components/UserDialog';
-import { getCurrentUser } from './components/leanCloud';
+import { getCurrentUser, Logout} from './components/leanCloud';
 
 //ID自增
 let id = 0
@@ -59,7 +59,10 @@ class App extends React.Component{
       todoList:state.todoList
     }))
     console.log(item);
-    
+  }
+  //注销
+  onlogout(e) {
+    Logout()
   }
   render() {
     //任务列表数据:添加过滤条件delete
@@ -82,6 +85,10 @@ class App extends React.Component{
       <div className="App">
         <h1>
           {this.state.user.username || '我'}的待办
+          {this.state.user.id
+            ?
+            <button onClick={this.onlogout.bind(this)}>注销</button>
+            : null}
         </h1>
         
         <TodoInput

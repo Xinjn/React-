@@ -53,6 +53,36 @@ Sign(
 )
 */
 
+function Login(username,password,successFn,errorFn) {
+  AV.User.logIn(username, password).then(
+    // 登录成功
+    (data) => {
+      //二次封装数据:用户数据+id
+      let user = getUserFrom(data)
+      successFn(user)
+    },
+    // 登录失败（可能是密码错误）
+    (error) => {
+      errorFn(error)
+    }
+  );
+  return undefined
+}
+
+//测试
+/*
+Login(
+  'xjn',
+  '123456',
+  function (data) {
+    console.log(data)
+  },
+  function (error) {
+    console.log(error)
+  },
+)
+*/
+
 //查看用户是否存在
 function getCurrentUser() {
   const user = AV.User.current();
@@ -65,6 +95,10 @@ function getCurrentUser() {
   }
 }
 
+//注销
+function Logout() {
+  AV.User.logOut();
+  return undefined
+}
 
-
-export {AV,Sign,getCurrentUser}
+export {AV,Sign,Login,getCurrentUser,Logout}
