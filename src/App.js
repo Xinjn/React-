@@ -37,6 +37,15 @@ class App extends React.Component{
     )
   }
   render() {
+    //任务列表数据
+    let todos = this.state.todoList.map((item, index) => {
+      return (
+        <li key={index}>
+          <TodoItem value={item}/>
+        </li>
+      )
+    })
+
     return (
       <div className="App">
         <h1>我的待办</h1>
@@ -49,7 +58,9 @@ class App extends React.Component{
         
         <button onClick={this.addItem} >新增</button>
 
-        <TodoItem value={this.state.todoList}/>
+        <ol>
+          {todos}
+        </ol>
       </div>
     )
   }
