@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import "../css/UserDialog.css"
 import {Login, Sign, sendPasswordResetEmail} from './leanCloud'
-import SignFom from './SignForm';
-import LoginForm from './LoginForm';
 import ForgotPassword from './ForgotPassword'
+import SignOrLogin from './SignOrLogin'
+
 
 class UserDialog extends React.Component{
     constructor(props) {
@@ -215,6 +215,7 @@ class UserDialog extends React.Component{
         )
         */
         //合并注册登录页面
+        /*
         let signOrLogin = (
             <div className="signOrLogin">
                 <nav>
@@ -254,6 +255,7 @@ class UserDialog extends React.Component{
                 </div>
             </div>
         )
+        */
         //重置页面
         /*
         let forgotPassword = (
@@ -291,14 +293,23 @@ class UserDialog extends React.Component{
                 <div className="UserDialog">
                     {this.state.selectTab === 'signOrLogin'
                         ?
-                            signOrLogin
-                        :
-                        <ForgotPassword
+                        <SignOrLogin
+                            selected={this.state.selected}
+                            switch={this.switch.bind(this)}
                             formData={this.state.formData}
-                            changeFormData={this.changeFormData.bind(this, 'email')}
-                            sendPasswordResetEmail={this.sendPasswordResetEmail.bind(this)}
-                            returnToLogin={this.returnToLogin.bind(this)}
+                            onSign={this.onSign.bind(this)}
+                            changeFormData={this.changeFormData.bind(this)}
+                            onLogin={this.onLogin.bind(this)}
+                            changeFormData={this.changeFormData.bind(this)}
+                            forgotPassword={this.forgotPassword.bind(this)}
                         />
+                        :
+                            <ForgotPassword
+                                formData={this.state.formData}
+                                changeFormData={this.changeFormData.bind(this, 'email')}
+                                sendPasswordResetEmail={this.sendPasswordResetEmail.bind(this)}
+                                returnToLogin={this.returnToLogin.bind(this)}
+                            />
                         }
                 </div>
             </div>
