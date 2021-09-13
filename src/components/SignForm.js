@@ -1,22 +1,18 @@
 import React,{ Component } from 'react';
 
-class SignForm extends React.Component{
-    constructor(props) {
-        super(props)
-        
-    }
-    render() {
+// eslint-disable-next-line import/no-anonymous-default-export
+export default function (props) {
         return (
             <form
                 className="sign"
-                onSubmit={this.props.onSign.bind(this)}
+                onSubmit={props.onSign.bind(this)}
             >
                 <div className="row">
                     <label>邮箱</label>
                     <input
                         type="email"
-                        value={this.props.formData.email}
-                        onChange={this.props.changeFormData.bind(null, 'email')
+                        value={props.formData.email}
+                        onChange={props.changeFormData.bind(null, 'email')
                         }
                     />
                 </div>
@@ -24,16 +20,16 @@ class SignForm extends React.Component{
                     <label>用户名</label>
                     <input
                         type="text"
-                        value={this.props.formData.username}
-                        onChange={this.props.changeFormData.bind(null,'username')}
+                        value={props.formData.username}
+                        onChange={props.changeFormData.bind(null,'username')}
                     />
                 </div>
                 <div className="row">
                     <label>密码</label>
                     <input
                         type="password"
-                        value={this.props.formData.password}
-                        onChange={this.props.changeFormData.bind(null,'password')}
+                        value={props.formData.password}
+                        onChange={props.changeFormData.bind(null,'password')}
                     />
                 </div>
                 <div className="row actions">
@@ -41,7 +37,4 @@ class SignForm extends React.Component{
                 </div>
             </form>
         )
-    }
 }
-
-export default SignForm
