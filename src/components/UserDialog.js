@@ -6,7 +6,8 @@ class UserDialog extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-            selected: 'login',
+            selected: 'login',//sign/login
+            selectTab:'signOrLogin',//forgotPassword
             formData: {
                 email:'',
                 username: '',
@@ -107,8 +108,12 @@ class UserDialog extends React.Component{
             error
         )
     }
+    //切换忘记密码组件
     forgotPassword() {
-        console.log('忘记密码');
+        console.log('forgotPassword');
+        this.setState(state => ({
+            selectTab:state.selectTab = 'forgotPassword'
+        }))
     }
     render() {
         let signForm = ( //注册
@@ -168,40 +173,72 @@ class UserDialog extends React.Component{
                     <div className="row actions">
                         <button >登录</button>
                         <a
-                            href="javascript:;"
+                            href="#!"
                             onClick={this.forgotPassword.bind(this)}
                         >
                         忘记密码?
                         </a>
                     </div>
-                    
+
                 </form>
+        )
+        let signOrLogin = (
+            <div className="signOrLogin">
+                <nav>
+                    <label>
+                        <input
+                        type="radio"
+                        value="sign"
+                        checked={this.state.selected === 'sign'}
+                        onChange={this.switch.bind(this)}
+                        />注册
+                    </label>
+                    <label>
+                        <input
+                        type="radio"
+                        value="login"
+                        checked={this.state.selected === 'login'}
+                        onChange={this.switch.bind(this)}
+                        />登录
+                    </label>
+                </nav>
+                <div className="panes">
+                    {this.state.selected === 'sign' ? signForm:null}
+                    {this.state.selected === 'login' ? loginForm : null}
+                </div>
+            </div>
+        )
+        let forgotPassword = (
+            <div className="forgotPassword">
+                <h3>
+                    重置密码
+                </h3>
+                <form className="forgotPassword">
+                    <div className="row">
+                        <label>
+                            邮箱
+                        </label>
+                        <input
+                            type="email"
+                            value={this.state.formData.email}
+                            onChange={this.changeFormData.bind(this, 'email')}
+                        />
+                    </div>
+                    <div className="row actions">
+                        <button type="submit">发送重置邮件</button>
+                    </div>
+                </form>
+            </div>
         )
         return (
             <div className="UserDialog-Wrapper">
                 <div className="UserDialog">
-                    <nav>
-                        <label>
-                            <input
-                            type="radio"
-                            value="sign"
-                            checked={this.state.selected === 'sign'}
-                            onChange={this.switch.bind(this)}
-                            />注册
-                        </label>
-                        <label>
-                            <input
-                            type="radio"
-                            value="login"
-                            checked={this.state.selected === 'login'}
-                            onChange={this.switch.bind(this)}
-                            />登录
-                        </label>
-                    </nav>
-                    <div className="panes">
-                        {this.state.selected === 'sign' ? signForm:null}
-                        {this.state.selected === 'login' ? loginForm:null}
-                    </div>
+                    {this.state.selectTab === 'signOrLogin'
+                        ?
+                            signOrLogin
+                        :
+                            forgotPassword
+                        }
                 </div>
             </div>
         )

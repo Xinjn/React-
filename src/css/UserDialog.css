@@ -51,3 +51,19 @@
   font: inherit; 
   padding: .2em;
 }
+
+.UserDialog .signOrLogin > nav:first-child{ 
+  padding: 1em; 
+  margin-left: -2em;
+}
+.UserDialog .signOrLogin > nav:first-child label{ 
+  margin-left: 2em;
+  cursor: pointer;
+}
+.UserDialog .signOrLogin > .panes { 
+  padding: 0 1em 1em; 
+}
+
+.UserDialog .forgotPassword > h3 {
+
+}

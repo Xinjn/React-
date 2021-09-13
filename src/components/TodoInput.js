@@ -5,7 +5,7 @@ class TodoInput extends React.Component{
   constructor(props) {
     super(props)
   }
-
+  //声明Ref引用
   getRef = React.createRef()
   //获取父组件会回调函数，调用函数
   sumbit = (e) => {
