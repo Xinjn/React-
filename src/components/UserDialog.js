@@ -8,6 +8,7 @@ class UserDialog extends React.Component{
         this.state = {
             selected: 'sign',
             formData: {
+                email:'',
                 username: '',
                 password: ''
             }
@@ -46,7 +47,7 @@ class UserDialog extends React.Component{
     onSign(e) {
         e.preventDefault();//阻止默认事件跳转
         console.log('注册');
-        let { username, password } = this.state.formData
+        let { email, username, password } = this.state.formData
         if (!username) { return alert('请输入用户名') }
         if(!password){return alert('请输入密码')}
         let success = (user) => {
@@ -66,6 +67,7 @@ class UserDialog extends React.Component{
             }
         }
         Sign(
+            email,
             username,
             password,
             success,
@@ -112,9 +114,19 @@ class UserDialog extends React.Component{
                 onSubmit={this.onSign.bind(this)}
             >
                 <div className="row">
+                    <label>邮箱</label>
+                    <input
+                        type="email"
+                        value={this.state.formData.email}
+                        onChange={this.changeFormData.bind(this, 'email')
+                        }
+                    />
+                </div>
+                <div className="row">
                     <label>用户名</label>
                     <input
                         type="text"
+                        value={this.state.formData.username}
                         onChange={this.changeFormData.bind(this,'username')}
                     />
                 </div>
@@ -122,6 +134,7 @@ class UserDialog extends React.Component{
                     <label>密码</label>
                     <input
                         type="password"
+                        value={this.state.formData.password}
                         onChange={this.changeFormData.bind(this,'password')}
                     />
                 </div>
@@ -151,7 +164,9 @@ class UserDialog extends React.Component{
                     </div>
                     <div className="row actions">
                         <button >登录</button>
+                        <a href="javascript:;">忘记密码?</a>
                     </div>
+                    
                 </form>
         )
         return (
