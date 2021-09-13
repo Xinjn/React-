@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import "../css/UserDialog.css"
 import {Login, Sign, sendPasswordResetEmail} from './leanCloud'
 import SignFom from './SignForm';
+import LoginForm from './LoginForm';
 
 class UserDialog extends React.Component{
     constructor(props) {
@@ -180,6 +181,7 @@ class UserDialog extends React.Component{
         )
         */
         //登录页面
+        /*
         let loginForm = ( 
             <form
                 className="login"
@@ -210,6 +212,7 @@ class UserDialog extends React.Component{
                     </div>
                 </form>
         )
+        */
         //合并注册登录页面
         let signOrLogin = (
             <div className="signOrLogin">
@@ -239,7 +242,14 @@ class UserDialog extends React.Component{
                             changeFormData={this.changeFormData.bind(this)}
                         />
                         : null}
-                    {this.state.selected === 'login' ? loginForm : null}
+                    {this.state.selected === 'login' ?
+                        <LoginForm
+                            onLogin={this.onLogin.bind(this)}
+                            changeFormData={this.changeFormData.bind(this)}
+                            forgotPassword={this.forgotPassword.bind(this)}
+                        />
+                        :
+                        null}
                 </div>
             </div>
         )

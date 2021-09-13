@@ -3,7 +3,7 @@ import React,{ Component } from 'react';
 class SignForm extends React.Component{
     constructor(props) {
         super(props)
-        console.log(props);
+        
     }
     render() {
         return (
