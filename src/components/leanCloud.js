@@ -168,10 +168,19 @@ function deleteData(item) {
 function sendPasswordResetEmail(email,successFn,errorFn) {
   AV.User.requestEmailVerify(email).then(
     function (success) {
-      successFn(success)
+      successFn.call(success)
     },
     function (error) {
-      alert('请不要往同一个邮件地址发送太多邮件')
+      switch (error.code) {
+        case 204:
+           alert('请输入邮箱')
+          break;
+        case 1:
+           alert('请不要往同一个邮件地址发送太多邮件')
+          break;
+        default:
+          break;
+      }
     }
   )
 }
