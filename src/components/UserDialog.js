@@ -9,7 +9,6 @@ class UserDialog extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-            selected: 'login',//sign/login
             selectTab:'signOrLogin',//forgotPassword
             formData: {
                 email:'',
@@ -17,15 +16,6 @@ class UserDialog extends React.Component{
                 password: ''
             }
         }
-    }
-
-    //注册/登录切换
-    switch(e) {
-        console.log(e.target.value);
-        this.setState(state=>({
-            selected:state.selected = e.target.value
-        })
-        )
     }
 
     /*
@@ -294,8 +284,6 @@ class UserDialog extends React.Component{
                     {this.state.selectTab === 'signOrLogin'
                         ?
                         <SignOrLogin
-                            selected={this.state.selected}
-                            switch={this.switch.bind(this)}
                             formData={this.state.formData}
                             onSign={this.onSign.bind(this)}
                             changeFormData={this.changeFormData.bind(this)}
