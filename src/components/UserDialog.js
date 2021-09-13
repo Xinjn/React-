@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import "../css/UserDialog.css"
-import {Login, Sign} from './leanCloud'
+import {Login, Sign, sendPasswordResetEmail} from './leanCloud'
 
 class UserDialog extends React.Component{
     constructor(props) {
@@ -38,13 +38,14 @@ class UserDialog extends React.Component{
         }))
     }
     */
-    //将 changeUserName 和 changePassword 优化成一个函数 changeFormData
+    //实时更新数据：将 changeUserName 和 changePassword 优化成一个函数 changeFormData
     changeFormData(key,e) {
         let value = e.target.value
         this.setState(state => ({
             key:state.formData[key] = value
         }))
     }
+    //注册
     onSign(e) {
         e.preventDefault();//阻止默认事件跳转
         console.log('注册');
@@ -75,6 +76,7 @@ class UserDialog extends React.Component{
             error
         )
     }
+    //登录
     onLogin(e) {
         e.preventDefault();//阻止默认事件跳转
         console.log('登录');
@@ -108,12 +110,18 @@ class UserDialog extends React.Component{
             error
         )
     }
-    //切换忘记密码组件
+    //切换重置密码组件
     forgotPassword() {
         console.log('forgotPassword');
         this.setState(state => ({
             selectTab:state.selectTab = 'forgotPassword'
         }))
+    }
+    sendPasswordResetEmail(e) {
+        console.log('发送重置邮件')
+        e.preventDefault()
+        console.log(this.state.formData.email);
+        sendPasswordResetEmail(this.state.formData.email)
     }
     render() {
         let signForm = ( //注册
@@ -179,7 +187,6 @@ class UserDialog extends React.Component{
                         忘记密码?
                         </a>
                     </div>
-
                 </form>
         )
         let signOrLogin = (
@@ -225,7 +232,10 @@ class UserDialog extends React.Component{
                         />
                     </div>
                     <div className="row actions">
-                        <button type="submit">发送重置邮件</button>
+                        <button
+                            type="submit"
+                            onClick={this.sendPasswordResetEmail.bind(this)}
+                        >发送重置邮件</button>
                     </div>
                 </form>
             </div>

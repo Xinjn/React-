@@ -164,4 +164,17 @@ function deleteData(item) {
             })
 }
 
-export {AV,Sign,Login,getCurrentUser,Logout,addTodo,getData,deleteData}
+//验证邮箱
+function sendPasswordResetEmail(email,successFn,errorFn) {
+  AV.User.requestEmailVerify(email).then(
+    function (success) {
+      successFn(success)
+    },
+    function (error) {
+      alert('请不要往同一个邮件地址发送太多邮件')
+    }
+  )
+}
+
+
+export {AV,Sign,Login,getCurrentUser,Logout,addTodo,getData,deleteData,sendPasswordResetEmail}
