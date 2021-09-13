@@ -286,7 +286,6 @@ class UserDialog extends React.Component{
                         <SignOrLogin
                             formData={this.state.formData}
                             onSign={this.onSign.bind(this)}
-                            changeFormData={this.changeFormData.bind(this)}
                             onLogin={this.onLogin.bind(this)}
                             changeFormData={this.changeFormData.bind(this)}
                             forgotPassword={this.forgotPassword.bind(this)}
