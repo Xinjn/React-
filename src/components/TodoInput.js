@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import '../css/TodoInput.css'
 
 class TodoInput extends React.Component{
   constructor(props) {
     super(props)
   }
+
+  getRef = React.createRef()
   //获取父组件会回调函数，调用函数
   sumbit = (e) => {
     if (e.keyCode === 13) {
       this.props.onSubmit.call()
       //清空缓存
-      let input = this.refs.myInput
-      input.value = ''
+      this.getRef.current.value = ''
     }
     
   }
@@ -28,7 +29,7 @@ class TodoInput extends React.Component{
           defaultValue={this.props.value}
           onChange = {this.changeTitle}
           onKeyDown={this.sumbit}
-          ref="myInput" //清空缓存
+          ref={this.getRef} //清空缓存
         />
       </>
     )

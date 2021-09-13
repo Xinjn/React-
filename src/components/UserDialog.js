@@ -6,7 +6,7 @@ class UserDialog extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-            selected: 'sign',
+            selected: 'login',
             formData: {
                 email:'',
                 username: '',
@@ -107,6 +107,9 @@ class UserDialog extends React.Component{
             error
         )
     }
+    forgotPassword() {
+        console.log('忘记密码');
+    }
     render() {
         let signForm = ( //注册
             <form
@@ -164,7 +167,12 @@ class UserDialog extends React.Component{
                     </div>
                     <div className="row actions">
                         <button >登录</button>
-                        <a href="javascript:;">忘记密码?</a>
+                        <a
+                            href="javascript:;"
+                            onClick={this.forgotPassword.bind(this)}
+                        >
+                        忘记密码?
+                        </a>
                     </div>
                     
                 </form>
