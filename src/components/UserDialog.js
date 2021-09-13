@@ -117,11 +117,19 @@ class UserDialog extends React.Component{
             selectTab:state.selectTab = 'forgotPassword'
         }))
     }
+    //发送重置邮件
     sendPasswordResetEmail(e) {
         console.log('发送重置邮件')
         e.preventDefault()
         console.log(this.state.formData.email);
         sendPasswordResetEmail(this.state.formData.email)
+    }
+    //返回登录
+    returnToLogin() {
+
+        this.setState(state => ({
+            selectTab:state.selectTab = 'signOrLogin'
+        }))
     }
     render() {
         let signForm = ( //注册
@@ -236,6 +244,10 @@ class UserDialog extends React.Component{
                             type="submit"
                             onClick={this.sendPasswordResetEmail.bind(this)}
                         >发送重置邮件</button>
+                        <a
+                            href="#!"
+                            onClick={this.returnToLogin.bind(this)}
+                        >返回登录</a>
                     </div>
                 </form>
             </div>
