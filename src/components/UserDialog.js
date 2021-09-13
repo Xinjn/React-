@@ -3,6 +3,7 @@ import "../css/UserDialog.css"
 import {Login, Sign, sendPasswordResetEmail} from './leanCloud'
 import SignFom from './SignForm';
 import LoginForm from './LoginForm';
+import ForgotPassword from './ForgotPassword'
 
 class UserDialog extends React.Component{
     constructor(props) {
@@ -254,6 +255,7 @@ class UserDialog extends React.Component{
             </div>
         )
         //重置页面
+        /*
         let forgotPassword = (
             <div className="forgotPassword">
                 <h3>
@@ -283,6 +285,7 @@ class UserDialog extends React.Component{
                 </form>
             </div>
         )
+        */
         return (
             <div className="UserDialog-Wrapper">
                 <div className="UserDialog">
@@ -290,7 +293,12 @@ class UserDialog extends React.Component{
                         ?
                             signOrLogin
                         :
-                            forgotPassword
+                        <ForgotPassword
+                            formData={this.state.formData}
+                            changeFormData={this.changeFormData.bind(this, 'email')}
+                            sendPasswordResetEmail={this.sendPasswordResetEmail.bind(this)}
+                            returnToLogin={this.returnToLogin.bind(this)}
+                        />
                         }
                 </div>
             </div>

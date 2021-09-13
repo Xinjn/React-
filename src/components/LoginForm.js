@@ -15,14 +15,14 @@ class LoginForm extends React.Component{
                         <label>用户名</label>
                         <input
                             type="text"
-                            onChange={this.props.changeFormData.bind(this,'username')}
+                            onChange={this.props.changeFormData.bind(null,'username')}
                             />
                     </div>
                     <div className="row">
                         <label>密码</label>
                         <input
                             type="password"
-                            onChange={this.props.changeFormData.bind(this,'password')}
+                            onChange={this.props.changeFormData.bind(null,'password')}
                         />
                     </div>
                     <div className="row actions">
