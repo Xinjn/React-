@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import "../css/UserDialog.css"
 import {Login, Sign, sendPasswordResetEmail} from './leanCloud'
+import SignFom from './SignForm';
 
 class UserDialog extends React.Component{
     constructor(props) {
@@ -15,6 +16,7 @@ class UserDialog extends React.Component{
             }
         }
     }
+
     //注册/登录切换
     switch(e) {
         console.log(e.target.value);
@@ -23,6 +25,7 @@ class UserDialog extends React.Component{
         })
         )
     }
+
     /*
     changeUsername(e) {
         let name = e.target.value
@@ -45,6 +48,7 @@ class UserDialog extends React.Component{
             key:state.formData[key] = value
         }))
     }
+
     //注册
     onSign(e) {
         e.preventDefault();//阻止默认事件跳转
@@ -76,6 +80,7 @@ class UserDialog extends React.Component{
             error
         )
     }
+
     //登录
     onLogin(e) {
         e.preventDefault();//阻止默认事件跳转
@@ -110,6 +115,7 @@ class UserDialog extends React.Component{
             error
         )
     }
+
     //切换重置密码组件
     forgotPassword() {
         console.log('forgotPassword');
@@ -117,6 +123,7 @@ class UserDialog extends React.Component{
             selectTab:state.selectTab = 'forgotPassword'
         }))
     }
+
     //发送重置邮件
     sendPasswordResetEmail(e) {
         console.log('发送重置邮件')
@@ -124,6 +131,7 @@ class UserDialog extends React.Component{
         console.log(this.state.formData.email);
         sendPasswordResetEmail(this.state.formData.email)
     }
+
     //返回登录
     returnToLogin() {
 
@@ -131,8 +139,11 @@ class UserDialog extends React.Component{
             selectTab:state.selectTab = 'signOrLogin'
         }))
     }
+
     render() {
-        let signForm = ( //注册
+        //注册页面
+        /*
+        let signForm = ( 
             <form
                 className="sign"
                 onSubmit={this.onSign.bind(this)}
@@ -167,7 +178,9 @@ class UserDialog extends React.Component{
                 </div>
             </form>
         )
-        let loginForm = ( //登录
+        */
+        //登录页面
+        let loginForm = ( 
             <form
                 className="login"
                 onSubmit={this.onLogin.bind(this)}
@@ -197,6 +210,7 @@ class UserDialog extends React.Component{
                     </div>
                 </form>
         )
+        //合并注册登录页面
         let signOrLogin = (
             <div className="signOrLogin">
                 <nav>
@@ -218,11 +232,18 @@ class UserDialog extends React.Component{
                     </label>
                 </nav>
                 <div className="panes">
-                    {this.state.selected === 'sign' ? signForm:null}
+                    {this.state.selected === 'sign' ?
+                        <SignFom
+                            formData={this.state.formData}
+                            onSign={this.onSign.bind(this)}
+                            changeFormData={this.changeFormData.bind(this)}
+                        />
+                        : null}
                     {this.state.selected === 'login' ? loginForm : null}
                 </div>
             </div>
         )
+        //重置页面
         let forgotPassword = (
             <div className="forgotPassword">
                 <h3>
