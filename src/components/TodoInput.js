@@ -40,11 +40,14 @@ class TodoInput extends React.Component{
 
 
 //获取父组件会回调函数，调用函数
-function sumbit(props,getRef,e){
-    if (e.keyCode === 13) {
-      props.onSubmit.call()
-       //清空缓存
-      getRef.current.value = ''
+function sumbit(props, getRef, e) {
+  
+  if (e.keyCode === 13) {
+      if (e.target.value.trim() !== '') { //无内容直接返回
+          props.onSubmit.call()
+          //清空缓存
+          getRef.current.value = ''
+      }
     }
 }
 //获取父组件会回调函数，传入表单数据
