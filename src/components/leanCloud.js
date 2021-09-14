@@ -135,13 +135,12 @@ function getData() {
   return new Promise((resolve, reject) => {
     const query = new AV.Query('Todo');
     query.find()
-      .then(todos => {
-              let array = todos.map(todo=>todo.attributes)
-              resolve(array)
-            })
-            .catch(error => {
-              reject(error)
-            })
+            .then(todos => {
+                      resolve(todos)
+                  })
+                  .catch(error => {
+                      reject(error)
+                  })
   })
 }
 //测试
@@ -153,18 +152,10 @@ getData().then(item => {
 
 //删除数据
 function deleteData(item) {
-    let id = item.id
-    const query = new AV.Query('Todo');
-    query.find()
-            .then(todos => {
-              todos.map(todo => {
-                if (todo.attributes.id === id) {
-                    const deleteFile = AV.Object.createWithoutData('Todo', todo.id);
-                    deleteFile.destroy();
-                }
-              })
-            })
+  const deleteFile = AV.Object.createWithoutData('Todo', item.id);
+  deleteFile.destroy();
 }
+
 
 //验证邮箱
 function sendPasswordResetEmail(email,successFn,errorFn) {
@@ -203,7 +194,7 @@ export const TodoModel = {
         // 成功保存之后，执行其他逻辑
         (data) => {
           console.log('保存成功')
-          successFn.call(null,data)
+          successFn.call(null, data)
         },
         // 异常处理
         (error) => {
@@ -215,14 +206,15 @@ export const TodoModel = {
 }
 //测试
 /*
-let newTodo = {
+let newItem = {
       title: 'xjn',
       status: null,
       deleted: false
     }
-TodoModel.create(newTodo,
+TodoModel.create(newItem,
   (data) => {
-    console.log(data);
+    newItem.id = data.id
+    console.log(newItem);
   },
   (error) => {
     console.log(error);

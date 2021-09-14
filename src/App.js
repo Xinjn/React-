@@ -20,33 +20,40 @@ class App extends React.Component{
       newTodo: '',
       todoList: []
     }
+
   }
 
   //出生渲染列表
   componentDidMount() {
-    getData().then(item => {
-      this.setState(state => ({
-        todoList:state.todoList = item
-      }))
+    getData().then(todos => {
+      todos.map(item => {
+        item.attributes['id'] = item.id
+        this.setState(state => ({
+          todoList: state.todoList.concat(item.attributes)
+        }))
+      })
     })
   }
 
   //添加列表新数据
+
   addItem = () => {
     console.log('新增数据')
     const newItem = {
       title: this.state.newTodo,
-      status: '',
-      delete: false
+      status: null,
+      deleted: false
     }
     //添加到数据库
     TodoModel.create(newItem,
       (data) => {
         //添加id(不使用自增id)
         newItem.id = data.id
+        console.log(newItem);
         this.setState(state => ({
           todoList:state.todoList.concat(newItem)
         }))
+        console.log(this.state.todoList);
       },
       (error) => {
         console.log(error);
@@ -54,6 +61,7 @@ class App extends React.Component{
     )
   }
 
+  
   //表单数据单项绑定
   changeTitle = (e) => { 
     this.setState(state =>
@@ -61,8 +69,8 @@ class App extends React.Component{
         newTodo:state.newTodo = e.target.value
       })
     )
-    
   }
+  
   //未完成/完成切换
   onToggle(e,item){
     item.status = item.status === "completed" ? '' : "completed"
@@ -75,9 +83,10 @@ class App extends React.Component{
   //删除功能
   onDelete(e,item) {
     item.delete = !item.delete
-    this.setState(state => ({
-      todoList:state.todoList
-    }))
+    console.log(item);
+    // this.setState(state => ({
+    //   todoList:state.todoList
+    // }))
     deleteData(item)
   }
   //注册：触发setSatet更新UI重新渲染
