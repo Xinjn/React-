@@ -104,6 +104,7 @@ function Logout() {
 }
 
 //保存数据
+/*
 function addTodo(id,title,status,deleted) {
   // 为 AV.Object 创建子类
   const Todo = AV.Object.extend('Todo');
@@ -127,6 +128,7 @@ function addTodo(id,title,status,deleted) {
     }
   );
 }
+*/
 
 //获取数据
 function getData() {
@@ -185,5 +187,47 @@ function sendPasswordResetEmail(email,successFn,errorFn) {
   )
 }
 
+//封装：所有跟 Todo 相关的 LeanCloud 操作都放到这里
+export const TodoModel = {
+  create({title,status,deleted },successFn,errorFn) {
+    // 为 AV.Object 创建子类
+      const Todo = AV.Object.extend('Todo')
+      // 新建数据对象
+      const todo = new Todo()
+      // 为属性赋值
+      todo.set('title',title)
+      todo.set('status',status)
+      todo.set('deleted',deleted)
+      // 将对象保存到云端
+      todo.save().then(
+        // 成功保存之后，执行其他逻辑
+        (data) => {
+          console.log('保存成功')
+          successFn.call(null,data)
+        },
+        // 异常处理
+        (error) => {
+          errorFn.call(null,error)
+        }
+      )
+  }
+  
+}
+//测试
+/*
+let newTodo = {
+      title: 'xjn',
+      status: null,
+      deleted: false
+    }
+TodoModel.create(newTodo,
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.log(error);
+  }
+)
+*/
 
-export {AV,Sign,Login,getCurrentUser,Logout,addTodo,getData,deleteData,sendPasswordResetEmail}
+export {AV,Sign,Login,getCurrentUser,Logout,getData,deleteData,sendPasswordResetEmail}

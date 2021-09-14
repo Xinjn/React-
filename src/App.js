@@ -3,7 +3,7 @@ import './App.css';
 import TodoInput from './components/TodoInput';
 import TodoItem from './components/TodoItem';
 import UserDialog from './components/UserDialog';
-import { getCurrentUser, Logout, addTodo, getData, deleteData} from './components/leanCloud';
+import { getCurrentUser, Logout, TodoModel, getData, deleteData} from './components/leanCloud';
 
 //ID自增
 let id = 0
@@ -34,16 +34,24 @@ class App extends React.Component{
   //添加列表新数据
   addItem = () => {
     console.log('新增数据')
-    let id = idMaker()
-    const newItem = { id:id, title:this.state.newTodo, status: '',delete:false}
-    this.setState(state =>
-      ({
-        todoList: state.todoList.concat(newItem),
-      })
-    )
+    const newItem = {
+      title: this.state.newTodo,
+      status: '',
+      delete: false
+    }
     //添加到数据库
-    //addTodo(id,title,status,deleted) 
-    addTodo(id.toString(),this.state.newTodo,'',false)
+    TodoModel.create(newItem,
+      (data) => {
+        //添加id(不使用自增id)
+        newItem.id = data.id
+        this.setState(state => ({
+          todoList:state.todoList.concat(newItem)
+        }))
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
   }
 
   //表单数据单项绑定
