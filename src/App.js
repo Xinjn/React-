@@ -70,7 +70,7 @@ class App extends React.Component{
       })
     )
   }
-  
+
   //未完成/完成切换
   onToggle(e,item){
     item.status = item.status === "completed" ? '' : "completed"
@@ -83,10 +83,9 @@ class App extends React.Component{
   //删除功能
   onDelete(e,item) {
     item.delete = !item.delete
-    console.log(item);
-    // this.setState(state => ({
-    //   todoList:state.todoList
-    // }))
+    this.setState(state => ({
+      todoList:state.todoList
+    }))
     deleteData(item)
   }
   //注册：触发setSatet更新UI重新渲染
