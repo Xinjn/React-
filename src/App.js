@@ -3,7 +3,7 @@ import './App.css';
 import TodoInput from './components/TodoInput';
 import TodoItem from './components/TodoItem';
 import UserDialog from './components/UserDialog';
-import { getCurrentUser, Logout, TodoModel, getData} from './components/leanCloud';
+import { getCurrentUser, Logout, TodoModel} from './components/leanCloud';
 
 //ID自增
 let id = 0
@@ -69,13 +69,14 @@ class App extends React.Component{
     )
   }
 
-  //未完成/完成切换
+  //数据更新（status状态切换并记录，防止页面刷新丢失）
   onToggle(e,item){
     item.status = item.status === "completed" ? '' : "completed"
     this.setState(state => ({
       todoList:state.todoList
     }))
-    console.log(item);
+    //数据更新（status状态切换并记录，防止页面刷新丢失）
+    TodoModel.update({id:item.id,status:item.status})
   }
 
   //删除功能

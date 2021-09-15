@@ -260,8 +260,45 @@ export const TodoModel = {
   deleteData(item) {
     const deleteFile = AV.Object.createWithoutData('Todo', item.id);
     deleteFile.destroy();
+  },
+  //数据更新（status状态切换并记录，防止页面刷新丢失）
+  update({id, title, status, deleted}) {
+    return new Promise((resolve, reject) => {
+        //获取更新对象
+        const todo = AV.Object.createWithoutData('Todo', id);
+
+        //更新title(首先判断是否存在)
+        title !== undefined && todo.set('title', title)
+        //更新title(首先判断是否存在)
+        status !== undefined && todo.set('status', status)
+        //更新title(首先判断是否存在)
+        deleted !== undefined && todo.set('deleted', deleted)
+        /*注意：
+        为什么不写成 title && todo.set('title', title) 呢，为什么要多此一举跟 undefined 做对比呢？
+        考虑如下场景
+        update({id:1, title: '', status: null}}
+        用户想将 title 和 status 置空，我们要满足
+        */
+        
+        //更新对象
+        todo.save().then(
+          (data) => {
+            resolve(data)
+          },
+          (error) => {
+            reject(error)
+          })
+    
+      })
   }
+  //测试
+  // TodoModel.update({ id: '6141727c8e1f966dbf2e30ae', title: 'a', status: 'completed', deleted: false }).then(data => {
+  //   console.log(data)
+  // })
 }
 
+// TodoModel.update({ id: '6141727c8e1f966dbf2e30ae', title: 'a', status: 'completed', deleted: false }).then(data => {
+//   console.log(data)
+// })
 
 export {AV,Sign,Login,getCurrentUser,Logout,sendPasswordResetEmail}
