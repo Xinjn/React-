@@ -180,6 +180,29 @@ function sendPasswordResetEmail(email,successFn,errorFn) {
 
 //封装：所有跟 Todo 相关的 LeanCloud 操作都放到这里
 export const TodoModel = {
+  //获取当前用户
+  getByUser(user) {
+    return new Promise((resolve, reject) => {
+      //查询对象
+      let query = new AV.Query('Todo')
+      //获取对象数据
+      query.find().then((data) => {
+          
+        let array  = data.map(item => {
+            return { id: item.id, ...item.attributes }
+          })
+          resolve(array)
+      },
+        (error) => {
+          reject(error)
+        }
+      )
+    })
+  },
+  //测试
+  // TodoModel.getByUser().then(data=>console.log(data))
+
+  //创建数据
   create({title,status,deleted },successFn,errorFn) {
     // 为 AV.Object 创建子类
       const Todo = AV.Object.extend('Todo')
@@ -188,7 +211,8 @@ export const TodoModel = {
       // 为属性赋值
       todo.set('title',title)
       todo.set('status',status)
-      todo.set('deleted',deleted)
+      todo.set('deleted', deleted)
+
       // 将对象保存到云端
       todo.save().then(
         // 成功保存之后，执行其他逻辑
@@ -202,24 +226,24 @@ export const TodoModel = {
         }
       )
   }
-  
-}
-//测试
-/*
-let newItem = {
-      title: 'xjn',
-      status: null,
-      deleted: false
+  //测试
+  /*
+  let newItem = {
+        title: 'xjn',
+        status: null,
+        deleted: false
+      }
+  TodoModel.create(newItem,
+    (data) => {
+      newItem.id = data.id
+      console.log(newItem);
+    },
+    (error) => {
+      console.log(error);
     }
-TodoModel.create(newItem,
-  (data) => {
-    newItem.id = data.id
-    console.log(newItem);
-  },
-  (error) => {
-    console.log(error);
-  }
-)
-*/
+  )
+  */
+}
+
 
 export {AV,Sign,Login,getCurrentUser,Logout,getData,deleteData,sendPasswordResetEmail}

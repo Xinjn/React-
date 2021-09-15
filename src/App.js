@@ -20,23 +20,21 @@ class App extends React.Component{
       newTodo: '',
       todoList: []
     }
-
   }
 
   //出生渲染列表
   componentDidMount() {
-    getData().then(todos => {
-      todos.map(item => {
-        item.attributes['id'] = item.id
+    let user = getCurrentUser()
+    if (user) {
+      TodoModel.getByUser().then(data => {
         this.setState(state => ({
-          todoList: state.todoList.concat(item.attributes)
+          todoList:state.todoList = data
         }))
       })
-    })
+    }
   }
 
   //添加列表新数据
-
   addItem = () => {
     console.log('新增数据')
     const newItem = {
