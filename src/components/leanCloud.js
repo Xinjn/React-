@@ -213,6 +213,16 @@ export const TodoModel = {
       todo.set('status',status)
       todo.set('deleted', deleted)
 
+      // 这样做就可以让这个 Todo 只被当前用户看到
+      let acl = new AV.ACL()
+      //设置不公开的「读」权限，任何人都不可以阅读
+       acl.setPublicReadAccess(false)
+      // 为当前用户赋予「读」权限
+      acl.setReadAccess(AV.User.current(), true)
+      // 为当前用户赋予「写」权限
+      acl.setWriteAccess(AV.User.current(), true)
+      todo.setACL(acl)
+    
       // 将对象保存到云端
       todo.save().then(
         // 成功保存之后，执行其他逻辑
