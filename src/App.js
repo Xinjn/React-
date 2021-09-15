@@ -91,18 +91,22 @@ class App extends React.Component{
     this.setState(state => ({
       user:state.user = user
     }))
+    window.location.reload()
   }
   //登陆：触发setSatet更新UI重新渲染
   onLogin(user) { 
     this.setState(state => ({
       user:state.user = user
     }))
+    window.location.reload()
   }
   //注销：触发setSatet更新UI重新渲染
   onlogout() {
     this.setState(state => ({
       user:state.user = {}
-    }))
+    }), () => { //触发回调函数
+      window.location.reload()
+    })
     Logout()
   }
   render() {
