@@ -131,6 +131,7 @@ function addTodo(id,title,status,deleted) {
 */
 
 //获取数据
+/*
 function getData() {
   return new Promise((resolve, reject) => {
     const query = new AV.Query('Todo');
@@ -143,6 +144,7 @@ function getData() {
                   })
   })
 }
+*/
 //测试
 /*
 getData().then(item => {
@@ -151,11 +153,12 @@ getData().then(item => {
 */
 
 //删除数据
+/*
 function deleteData(item) {
   const deleteFile = AV.Object.createWithoutData('Todo', item.id);
   deleteFile.destroy();
 }
-
+*/
 
 //验证邮箱
 function sendPasswordResetEmail(email,successFn,errorFn) {
@@ -181,7 +184,7 @@ function sendPasswordResetEmail(email,successFn,errorFn) {
 //封装：所有跟 Todo 相关的 LeanCloud 操作都放到这里
 export const TodoModel = {
   //获取当前用户
-  getByUser(user) {
+  getUserDate(user) {
     return new Promise((resolve, reject) => {
       //查询对象
       let query = new AV.Query('Todo')
@@ -235,7 +238,7 @@ export const TodoModel = {
           errorFn.call(null,error)
         }
       )
-  }
+  },
   //测试
   /*
   let newItem = {
@@ -253,7 +256,12 @@ export const TodoModel = {
     }
   )
   */
+  //删除数据
+  deleteData(item) {
+    const deleteFile = AV.Object.createWithoutData('Todo', item.id);
+    deleteFile.destroy();
+  }
 }
 
 
-export {AV,Sign,Login,getCurrentUser,Logout,getData,deleteData,sendPasswordResetEmail}
+export {AV,Sign,Login,getCurrentUser,Logout,sendPasswordResetEmail}

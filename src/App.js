@@ -3,7 +3,7 @@ import './App.css';
 import TodoInput from './components/TodoInput';
 import TodoItem from './components/TodoItem';
 import UserDialog from './components/UserDialog';
-import { getCurrentUser, Logout, TodoModel, getData, deleteData} from './components/leanCloud';
+import { getCurrentUser, Logout, TodoModel, getData} from './components/leanCloud';
 
 //ID自增
 let id = 0
@@ -26,7 +26,7 @@ class App extends React.Component{
   componentDidMount() {
     let user = getCurrentUser()
     if (user) {
-      TodoModel.getByUser().then(data => {
+      TodoModel.getUserDate().then(data => {
         this.setState(state => ({
           todoList:state.todoList = data
         }))
@@ -76,16 +76,17 @@ class App extends React.Component{
       todoList:state.todoList
     }))
     console.log(item);
-    
   }
+
   //删除功能
   onDelete(e,item) {
-    item.delete = !item.delete
+    item.delete = true
     this.setState(state => ({
       todoList:state.todoList
     }))
-    deleteData(item)
+    TodoModel.deleteData(item)
   }
+
   //注册：触发setSatet更新UI重新渲染
   onSign(user) {
     this.setState(state => ({
@@ -93,6 +94,7 @@ class App extends React.Component{
     }))
     window.location.reload()
   }
+
   //登陆：触发setSatet更新UI重新渲染
   onLogin(user) { 
     this.setState(state => ({
