@@ -20,7 +20,9 @@ class App extends React.Component{
       newTodo: '',
       todoList: []
     }
+
   }
+
 
   //出生渲染列表
   componentDidMount() {
@@ -32,6 +34,7 @@ class App extends React.Component{
         }))
       })
     }
+
   }
 
   //添加列表新数据
@@ -39,7 +42,7 @@ class App extends React.Component{
     console.log('新增数据')
     const newItem = {
       title: this.state.newTodo,
-      status: null,
+      status: '',
       deleted: false
     }
     //添加到数据库
@@ -57,6 +60,7 @@ class App extends React.Component{
         console.log(error);
       }
     )
+    
   }
 
   

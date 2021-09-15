@@ -46,8 +46,16 @@ class UserDialog extends React.Component{
         e.preventDefault();//阻止默认事件跳转
         console.log('注册');
         let { email, username, password } = this.state.formData
-        if (!username) { return alert('请输入用户名') }
-        if(!password){return alert('请输入密码')}
+        if (!username) {
+            return alert('请输入用户名')
+        } else if(username.length < 3){
+            return alert('用户名必须大于三个字符')
+        }
+        if (!password) {
+            return alert('请输入密码')
+        } else if(password.length < 6){
+            return alert('密码必须不小于6个字符')
+        }
         let success = (user) => {
             this.props.onSign.call(null,user)
         }

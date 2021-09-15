@@ -39,17 +39,21 @@ class TodoInput extends React.Component{
 */
 
 
+
 //获取父组件会回调函数，调用函数
 function sumbit(props, getRef, e) {
   
   if (e.keyCode === 13) {
-      if (e.target.value.trim() !== '') { //无内容直接返回
+    if (e.target.value.trim() !== '') { //无内容直接返回
           props.onSubmit.call()
           //清空缓存
           getRef.current.value = ''
       }
     }
 }
+
+
+
 //获取父组件会回调函数，传入表单数据
 function  changeTitle(props,e){
     props.onChange(e)
@@ -60,6 +64,7 @@ function  changeTitle(props,e){
 export default function (props) {
   //声明useRef引用
   const getRef = useRef(null)
+
   return <input
             className="TodoInput"
             type="text"
